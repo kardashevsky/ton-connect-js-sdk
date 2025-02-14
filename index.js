@@ -29,7 +29,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     const connectButton = document.getElementById("connectWallet");
 
     document.fonts.ready.then(() => {
-      console.log("Шрифт загружен, показываем кнопку.");
       connectButton.style.visibility = "visible";
       connectButton.style.opacity = "1";
     });

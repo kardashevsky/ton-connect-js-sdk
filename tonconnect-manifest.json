@@ -1,7 +1,10 @@
 {
-  "url": "https://kardashevsky.github.io/ton-connect-js-sdk/", 
-  "name": "TonConnect WebApp", 
-  "iconUrl": "https://img.freepik.com/free-vector/bird-colorful-logo-gradient-vector_343694-1365.jpg?t=st=1739516794~exp=1739520394~hmac=0cf8cbd6bfc990ebdeadcc44551cee693faac7a9f42a3999ac5dbc7a8d1aa5d0&w=826", 
-  "termsUrl": "https://yourwebsite.com/terms", 
-  "privacyPolicyUrl": "https://yourwebsite.com/privacy"
+  "manifestUrl": "https://kardashevsky.github.io/ton-connect-js-sdk/tonconnect-manifest.json",
+  "name": "Ton Connect Test",
+  "description": "Приложение для подключения Ton кошельков.",
+  "iconUrl": "https://kardashevsky.github.io/ton-connect-js-sdk/wallet.png",
+  "developer": {
+    "name": "Kardashevsky",
+    "url": "https://kardashevsky.github.io/ton-connect-js-sdk/"
+  }
 }
