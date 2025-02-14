@@ -1,13 +1,14 @@
-body {
+html, body {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  height: 100%;
   background-color: #121212;
   color: white;
   font-family: Arial, sans-serif;
   text-align: center;
 }
+
 .container {
   display: flex;
   flex-direction: column;
