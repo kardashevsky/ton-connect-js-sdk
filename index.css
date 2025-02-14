@@ -6,7 +6,7 @@ html, body {
   align-items: center;
   height: 100%;
   height: var(--tg-viewport-height);
-  background-color: #121212;
+  background-color: #000000;
   color: white;
   font-family: 'Onest', sans-serif;
   text-align: center;
