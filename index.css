@@ -1,11 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=Onest:wght@600&display=swap');
+
 html, body {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100%;
+  height: var(--tg-viewport-height);
   background-color: #121212;
   color: white;
-  font-family: Arial, sans-serif;
+  font-family: 'Onest', sans-serif;
   text-align: center;
 }
 
@@ -16,18 +19,19 @@ html, body {
 }
 
 .connect-button {
+  visibility: hidden;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 100%;
-  height: 70px;
-  max-width: 350px;
-  background: linear-gradient(135deg, #484B5E, #5A6175);
+  height: 60px;
+  width: 325px;
+  background: linear-gradient(135deg, #5A6175, #484B5E);
   color: white;
   border: none;
-  padding: 15px 20px;
-  font-size: 18px;
-  border-radius: 28px;
+  padding: 21px 20px;
+  font-size: 14px;
+  font-family: 'Onest', sans-serif;
+  border-radius: 22px;
   cursor: pointer;
   transition: transform 0.1s ease-in-out;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
@@ -38,7 +42,6 @@ html, body {
 }
 
 .connect-button img {
-  width: 24px;
-  height: 24px;
-  margin-left: 10px;
+  width: 22px;
+  height: 20px;
 }
