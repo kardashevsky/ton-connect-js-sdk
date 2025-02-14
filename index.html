@@ -13,33 +13,48 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", async () => {
-            const tonConnect = new TonConnect({
-                manifestUrl: "./tonconnect-manifest.json" // Указываем манифест при инициализации
-            });
-
+            console.log("DOM полностью загружен");
+            
+            if (typeof TonConnect === "undefined") {
+                console.error("TonConnect не загружен! Проверь ссылку на SDK.");
+                return;
+            }
+            
+            const tonConnect = new TonConnect();
             const connectButton = document.getElementById("connectWallet");
             const walletAddressEl = document.getElementById("walletAddress");
-
-            // Проверяем, есть ли уже сохраненный кошелек
+            
+            console.log("TonConnect инициализирован");
+            
             const savedWallet = localStorage.getItem("ton_wallet");
             if (savedWallet) {
+                console.log("Найден сохраненный кошелек: ", savedWallet);
                 walletAddressEl.textContent = "Подключенный кошелек: " + savedWallet;
             }
-
+            
             connectButton.addEventListener("click", async () => {
+                console.log("Кнопка подключения нажата");
                 try {
-                    // Получаем список доступных кошельков
                     const wallets = await tonConnect.getWallets();
+                    console.log("Список доступных кошельков:", wallets);
+                    
                     if (wallets.length === 0) {
                         alert("Нет доступных кошельков.");
+                        console.warn("Нет доступных кошельков");
                         return;
                     }
-
-                    // Открываем модальное окно выбора кошелька
-                    await tonConnect.connectWallet();
-
-                    // Получаем информацию о подключенном аккаунте
+                    
+                    const manifestUrl = "./tonconnect-manifest.json";
+                    console.log("Используем манифест:", manifestUrl);
+                    
+                    await tonConnect.connect({
+                        manifestUrl: manifestUrl,
+                        bridgeUrl: "https://bridge.tonapi.io/bridge"
+                    });
+                    
                     const account = tonConnect.account;
+                    console.log("Подключенный аккаунт:", account);
+                    
                     if (account) {
                         localStorage.setItem("ton_wallet", account.address);
                         walletAddressEl.textContent = "Подключенный кошелек: " + account.address;
