@@ -1,5 +1,9 @@
 document.addEventListener("DOMContentLoaded", async () => {
-    console.log("DOM полностью загружен");
+    const webApp = window.Telegram.WebApp;
+    webApp.expand();
+    webApp.lockOrientation();
+    webApp.disableVerticalSwipes();
+    webApp.ready();
 
     const tonConnect = new TON_CONNECT_UI.TonConnectUI({
         manifestUrl: "./tonconnect-manifest.json",
@@ -9,10 +13,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     connectButton.addEventListener("click", async () => {
         try {
-            if (window.Telegram && Telegram.WebApp) {
-                Telegram.WebApp.HapticFeedback.impactOccurred("light");
-            }
-            console.log("Открытие модального окна TonConnect");
+            webApp.HapticFeedback.impactOccurred("light");
             await tonConnect.openModal();
         } catch (error) {
             console.error("Ошибка при открытии модального окна:", error);
