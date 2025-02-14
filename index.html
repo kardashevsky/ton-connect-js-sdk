@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ton Connect Test</title>
+    <script src="https://unpkg.com/@tonconnect/sdk@latest"></script>
+</head>
+<body>
+    <h2>Выберите кошелек для подключения</h2>
+    <button id="connectWallet">Подключить кошелек</button>
+    <p id="walletAddress"></p>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", async () => {
+            const tonConnect = new TonConnect();
+            const connectButton = document.getElementById("connectWallet");
+            const walletAddressEl = document.getElementById("walletAddress");
+            
+            // Проверяем, есть ли уже сохраненный кошелек в localStorage
+            const savedWallet = localStorage.getItem("ton_wallet");
+            if (savedWallet) {
+                walletAddressEl.textContent = "Подключенный кошелек: " + savedWallet;
+            }
+
+            connectButton.addEventListener("click", async () => {
+                try {
+                    const wallets = await tonConnect.getWallets(); // Получаем список доступных кошельков
+                    if (wallets.length === 0) {
+                        alert("Нет доступных кошельков.");
+                        return;
+                    }
+                    
+                    const selectedWallet = await tonConnect.connect(wallets[0].universalLink);
+                    localStorage.setItem("ton_wallet", selectedWallet.account.address);
+                    walletAddressEl.textContent = "Подключенный кошелек: " + selectedWallet.account.address;
+                } catch (error) {
+                    console.error("Ошибка подключения:", error);
+                    alert("Ошибка подключения к кошельку.");
+                }
+            });
+        });
+    </script>
+</body>
+</html>
