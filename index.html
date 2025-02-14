@@ -13,11 +13,14 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", async () => {
-            const tonConnect = new TonConnect();
+            const tonConnect = new TonConnect({
+                manifestUrl: "./tonconnect-manifest.json" // Указываем манифест при инициализации
+            });
+
             const connectButton = document.getElementById("connectWallet");
             const walletAddressEl = document.getElementById("walletAddress");
-            
-            // Проверяем, есть ли уже сохраненный кошелек в localStorage
+
+            // Проверяем, есть ли уже сохраненный кошелек
             const savedWallet = localStorage.getItem("ton_wallet");
             if (savedWallet) {
                 walletAddressEl.textContent = "Подключенный кошелек: " + savedWallet;
@@ -25,15 +28,22 @@
 
             connectButton.addEventListener("click", async () => {
                 try {
-                    const wallets = await tonConnect.getWallets(); // Получаем список доступных кошельков
+                    // Получаем список доступных кошельков
+                    const wallets = await tonConnect.getWallets();
                     if (wallets.length === 0) {
                         alert("Нет доступных кошельков.");
                         return;
                     }
-                    
-                    const selectedWallet = await tonConnect.connect(wallets[0].universalLink);
-                    localStorage.setItem("ton_wallet", selectedWallet.account.address);
-                    walletAddressEl.textContent = "Подключенный кошелек: " + selectedWallet.account.address;
+
+                    // Открываем модальное окно выбора кошелька
+                    await tonConnect.connectWallet();
+
+                    // Получаем информацию о подключенном аккаунте
+                    const account = tonConnect.account;
+                    if (account) {
+                        localStorage.setItem("ton_wallet", account.address);
+                        walletAddressEl.textContent = "Подключенный кошелек: " + account.address;
+                    }
                 } catch (error) {
                     console.error("Ошибка подключения:", error);
                     alert("Ошибка подключения к кошельку.");
