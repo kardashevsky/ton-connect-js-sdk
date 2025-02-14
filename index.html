@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ton Connect Test</title>
-    <script src="https://unpkg.com/@tonconnect/ui@latest/dist/tonconnect-ui.min.js"></script>
+    <script src="https://unpkg.com/@tonconnect/ui@latest"></script>
     <style>
         body {
             display: flex;
@@ -52,13 +52,8 @@
         document.addEventListener("DOMContentLoaded", async () => {
             console.log("DOM полностью загружен");
 
-            if (typeof TonConnectUI === "undefined") {
-                console.error("TonConnectUI не загружен! Проверь ссылку на SDK.");
-                return;
-            }
-
-            const tonConnect = new TonConnectUI({
-                manifestUrl: "./tonconnect-manifest.json" 
+            const tonConnect = new TON_CONNECT_UI.TonConnectUI({
+                manifestUrl: "./tonconnect-manifest.json"
             });
 
             const connectButton = document.getElementById("connectWallet");
@@ -75,17 +70,24 @@
             connectButton.addEventListener("click", async () => {
                 console.log("Кнопка подключения нажата");
                 try {
+                    const wallets = await tonConnect.getWallets();
+                    console.log("Список доступных кошельков:", wallets);
+                    if (!wallets.length) {
+                        alert("Нет доступных кошельков.");
+                        return;
+                    }
+                    
                     const wallet = await tonConnect.connectWallet();
                     console.log("Выбранный кошелек:", wallet);
-
+                    
                     if (!wallet) {
                         alert("Вы не выбрали кошелек.");
                         return;
                     }
-
+                    
                     const account = wallet.account;
                     console.log("Подключенный аккаунт:", account);
-
+                    
                     if (account) {
                         localStorage.setItem("ton_wallet", account.address);
                         walletAddressEl.textContent = "Подключенный кошелек: " + account.address;
