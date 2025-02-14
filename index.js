@@ -23,7 +23,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     webApp.ready();
 
     const tonConnect = new TON_CONNECT_UI.TonConnectUI({
-        manifestUrl: "./tonconnect-manifest.json",
+        manifestUrl: "https://kardashevsky.github.io/ton-connect-js-sdk/tonconnect-manifest.json",
     });
 
     const connectButton = document.getElementById("connectWallet");

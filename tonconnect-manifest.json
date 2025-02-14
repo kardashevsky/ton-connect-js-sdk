@@ -1,5 +1,10 @@
 {
-  "url": "https://ton.vote",
-  "name": "TON Vote",
-  "iconUrl": "https://ton.vote/logo.png"
+  "manifestUrl": "https://kardashevsky.github.io/ton-connect-js-sdk/tonconnect-manifest.json",
+  "name": "Ton Connect Test",
+  "description": "Приложение для подключения Ton кошельков.",
+  "iconUrl": "https://kardashevsky.github.io/ton-connect-js-sdk/wallet.png",
+  "developer": {
+    "name": "Kardashevsky",
+    "url": "https://kardashevsky.github.io/ton-connect-js-sdk/"
+  }
 }
