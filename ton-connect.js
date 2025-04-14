@@ -7,6 +7,10 @@ export async function connectTelegramWallet() {
     });
   }
 
+  if (tonConnectInstance.wallet) {
+    return tonConnectInstance.wallet;
+  }
+
   try {
     const wallet = await tonConnectInstance.connectWallet('telegram');
     return wallet;
@@ -16,5 +20,12 @@ export async function connectTelegramWallet() {
       success: false,
       error: error?.message || "Unknown error",
     };
+  }
+}
+
+export function disconnectTelegramWallet() {
+  if (tonConnectInstance) {
+    tonConnectInstance.disconnect();
+    console.log("🔌 Кошелёк отключён");
   }
 }
