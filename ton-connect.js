@@ -1,31 +1,20 @@
-// Initialize TonConnect
-const tonConnect = new TonConnect.TonConnect();
+let tonConnectInstance = null;
 
-// Function to connect wallet
-async function connectWallet() {
+export async function connectTelegramWallet() {
+  if (!tonConnectInstance) {
+    tonConnectInstance = new TON_CONNECT_UI.TonConnectUI({
+      manifestUrl: 'https://kardashevsky.github.io/ton-connect-js-sdk/tonconnect-manifest.json',
+    });
+  }
+
   try {
-    const wallet = await tonConnect.connect(); // Correct method name if 'connectWallet' is incorrect
-    console.log('Wallet connected:', wallet);
-    // Передача данных в Unity
-    if (typeof unityInstance !== 'undefined') {
-      unityInstance.SendMessage('GameObjectName', 'OnWalletConnected', JSON.stringify(wallet));
-    }
+    const wallet = await tonConnectInstance.connectWallet('telegram');
+    return wallet;
   } catch (error) {
-    console.error('Error connecting wallet:', error);
-    if (typeof unityInstance !== 'undefined') {
-      unityInstance.SendMessage('GameObjectName', 'OnWalletConnectionError', error.message);
-    }
+    console.error(error);
+    return {
+      success: false,
+      error: error?.message || "Unknown error",
+    };
   }
 }
-
-// Function to disconnect wallet
-function disconnectWallet() {
-  tonConnect.disconnect();
-  console.log('Wallet disconnected');
-  if (typeof unityInstance !== 'undefined') {
-    unityInstance.SendMessage('GameObjectName', 'OnWalletDisconnected');
-  }
-}
-
-// Example usage
-// connectWallet(); // Вызывать из Unity при необходимости
