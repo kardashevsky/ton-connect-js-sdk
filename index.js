@@ -15,8 +15,6 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   connectButton.addEventListener("click", async () => {
-    window.Telegram.WebApp.HapticFeedback.impactOccurred("light");
-
     const wallet = await connectTelegramWallet();
     if (wallet?.success === false) {
       console.error("Ошибка:", wallet.error);
@@ -26,8 +24,6 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   disconnectButton.addEventListener("click", () => {
-    window.Telegram.WebApp.HapticFeedback.impactOccurred("light");
-
     disconnectTelegramWallet();
   });
 });

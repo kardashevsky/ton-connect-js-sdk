@@ -26,6 +26,5 @@ export async function connectTelegramWallet() {
 export function disconnectTelegramWallet() {
   if (tonConnectInstance) {
     tonConnectInstance.disconnect();
-    console.log("🔌 Кошелёк отключён");
   }
 }
